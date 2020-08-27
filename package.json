@@ -1,0 +1,19 @@
+{
+  "name": "nightingale",
+  "version": "1.0.0",
+  "description": "A discord bot for all your streaming radio needs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "Alexander 'Avunia' Takiya <avunia@takiya.cloud> (https://takiya.cloud)",
+  "license": "MIT",
+  "private": "true",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "ffmpeg-static": "^4.2.7",
+    "libsodium-wrappers": "^0.7.8"
+  }
+}

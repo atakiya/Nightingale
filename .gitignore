@@ -1,0 +1,13 @@
+# Dependency dirs
+node_modules/
+
+# Optional cache
+.npm
+
+# dotenv
+.env
+.env.test
+
+# vsIDE and vscode configuration
+.vs/
+.vscode/
