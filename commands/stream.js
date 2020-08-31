@@ -54,7 +54,7 @@ const getSetStreamVolume = {
 
 			try {
 				dispatcher.setVolume(setFromUserFriendlyVolume(arg));
-				msg.channel.send(`\\✅\\🔊 Volume set to ${getUserFriendlyVolume(dispatcher.volume)}`);
+				msg.channel.send(`\\✅\\🔊 Volume set to ${getUserFriendlyVolume(dispatcher.volume)}%`);
 			} catch (err) {
 				console.error(err);
 				msg.channel.send(`\\❌\\🔊 Error:\n${err.message}`);
