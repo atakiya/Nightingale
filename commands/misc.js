@@ -23,6 +23,15 @@ const reload = {
 	}
 }
 
+const ping = {
+	name: "ping",
+	description: "",
+	async execute(msg, _) {
+		msg.channel.send("\\📶 Peep!");
+	}
+}
+
 module.exports = {
 	reload: reload,
+	ping: ping,
 }
