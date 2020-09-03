@@ -61,7 +61,7 @@ nightingale.commands.sort();
 
 /* Are we in debug mode according to config? */
 nightingale.on("debug", (info) => {
-	if(nightingale.config.debugging) console.log(info);
+	if(nightingale.config.debug) console.log(info);
 });
 
 nightingale.on("ready", () => {
