@@ -11,3 +11,6 @@ node_modules/
 # vsIDE and vscode configuration
 .vs/
 .vscode/
+
+# Config file
+configuration.json
