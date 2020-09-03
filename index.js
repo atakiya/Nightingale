@@ -14,25 +14,43 @@ try {
 	process.exit(1);
 }
 
+nightingale.configDefaults = {
+	debug: false,
+	name: "Nightingale",
+	prefix: "n",
+	volumeMod: 0.5
+}
+
 /* Now check if we have an option file, if not, write defaults into a new file */
 try {
+	let configUpdated = false;
 	nightingale.config = require("./config.json");
+	/* Check if we need to add new config parameters to the file */
+	for (const key in nightingale.configDefaults) {
+		if(!(key in nightingale.config)) {
+			nightingale.config[key] = nightingale.configDefaults[key];
+			configUpdated = true;
+		}
+	}
+	/* Write the new config now if anything changed */
+	if (configUpdated) {
+		fs.writeFile("./config.json", JSON.stringify(nightingale.config), function(err) {
+			if (err) return console.error(err);
+			console.log("Updated configuration file has been written successfully.");
+		});
+	}
 } catch (err) {
 	console.warn(err);
-	const configDefault = {
-		debug: false,
-		name: "Nightingale",
-		prefix: "n",
-		volumeMod: 0.5
-	}
 	console.log("Attempting to write a default config file...");
-	try {
-		fs.writeFileSync("./config.json", JSON.stringify(configDefault));
-	} catch (err) {
-		console.error(`Writing default config failed! \n${err}`);
-		console.warn("Settling onto hardcoded defaults...");
-		nightingale.config = configDefault;
-	}
+	fs.writeFileSync("./config.json", JSON.stringify(nightingale.configDefaults), function(err) {
+		if (err) {
+			console.error("Writing default config failed!");
+			console.warn("Settling onto hardcoded defaults...");
+			nightingale.config = nightingale.configDefaults;
+			return console.error(err);
+		}
+		console.log("Default configuration file has been written successfully.");
+	});
 }
 
 /* Now we read all existing commands and store them, ready to be used */
