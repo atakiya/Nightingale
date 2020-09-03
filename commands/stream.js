@@ -12,7 +12,9 @@ const startStream = {
 			let dispatcher;
 			try {
 				const connection = await msg.member.voice.channel.join();
-				dispatcher = connection.play(arg, {volume: 0.10});
+				dispatcher = connection.play(arg, {
+					volume: msg.client.config.volumeMod * 0.20
+				});
 				msg.channel.send(`\\✅🎶 Connected to ${msg.member.voice.channel.name}, starting playback of \<${arg}\>`);
 			} catch (err) {
 				console.error(err);
