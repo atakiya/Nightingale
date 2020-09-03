@@ -13,4 +13,4 @@ node_modules/
 .vscode/
 
 # Config file
-configuration.json
+config.json
