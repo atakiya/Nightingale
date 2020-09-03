@@ -21,6 +21,7 @@ try {
 	console.warn(err);
 	const configDefault = {
 		debug: false,
+		name: "Nightingale",
 		prefix: "n",
 		volumeMod: 0.5
 	}

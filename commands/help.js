@@ -8,7 +8,7 @@ const botHelp = {
 		const { commands } = msg.client;
 		const embed = new Discord.MessageEmbed()
 			.setColor("#ddddcc")
-			.setTitle(`${"Nightingale"} Help`)
+			.setTitle(`${msg.client.config.name} Help`);
 		const data = [];
 		data.push("__Following are all commands that this bot supports.__");
 		data.push("Commands follow this pattern: `prefix command <required argument> [optional argument]`\n");
