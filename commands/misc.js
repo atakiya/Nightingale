@@ -27,7 +27,8 @@ const ping = {
 	name: "ping",
 	description: "",
 	async execute(msg, _) {
-		msg.channel.send("\\📶 Peep!");
+		const noises = ["Peep", "Chirp", "Tweet", "Caw", "Chirrup", "AAAAAA"];
+		msg.channel.send(`\\📶 ${noises[Math.floor(Math.random() * noises.length)]}!`);
 	}
 }
 

@@ -21,6 +21,10 @@ nightingale.configDefaults = {
 	volumeMod: 0.5
 }
 
+nightingale.recentExecuters = new Set();
+nightingale.recentExecutersNotified = false;
+nightingale.recentExecutersCooldown = 2000; //Cooldown in ms
+
 /* Now check if we have an option file, if not, write defaults into a new file */
 try {
 	let configUpdated = false;
@@ -94,6 +98,17 @@ nightingale.on("ready", () => {
 nightingale.on("message", async (msg) => {
 	/* Check if message starts with prefix, is long enough, is not from another bot, and is in guild, no DMs! */
 	if (!msg.content.startsWith(nightingale.config.prefix) || msg.content.length < 3 || msg.author.bot || !msg.guild) return;
+	/* Check command cooldown. We do not want people spamming commands. */
+	if (nightingale.recentExecuters.has(msg.author.id)) {
+		if (!nightingale.recentExecutersNotified) {
+			msg.channel.send(`Please wait ${nightingale.recentExecutersCooldown/1000} seconds between commands.`);
+			nightingale.recentExecutersNotified = true;
+			setTimeout(() => {
+				nightingale.recentExecutersNotified = false;
+			}, nightingale.recentExecutersCooldown);
+		}
+		return;
+	}
 
 	/* Split message into command and argument(s) */
 	const args = msg.content.slice(nightingale.config.prefix.length).trim().split(/ +/);
@@ -110,6 +125,10 @@ nightingale.on("message", async (msg) => {
 	/* It apparently does - let's try to execute it */
 	try {
 		targetCommand.execute(msg, args);
+		nightingale.recentExecuters.add(msg.author.id);
+		setTimeout(() => {
+			nightingale.recentExecuters.delete(msg.author.id);
+		}, nightingale.recentExecutersCooldown);
 	} catch (err) {
 		console.error(err);
 		msg.channel.send(err.message);
